@@ -9,6 +9,7 @@ import fs from "fs";
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+import { join } from "path";
 
 const app = express();
 
@@ -77,14 +78,14 @@ app.post("/upload", (req, res) => {
   const myFile = req.files.file;
 
   //  mv() method places the file inside public directory
-  myFile.mv(`${__dirname}/${myFile.name}`, async (err) => {
+  myFile.mv(join(__dirname, myFile.name), async (err) => {
     if (err) {
       console.log(err);
       return res.status(500).send({ msg: "Error occured" });
     }
     // returing the response with file path and name
-    const text = await pdfToText(`${__dirname}/${myFile.name}`);
-    fs.unlinkSync(`${__dirname}/${myFile.name}`);
+    const text = await pdfToText(join(__dirname, myFile.name));
+    fs.unlinkSync(join(__dirname, myFile.name));
     const LanguageCode = await detectLanguageCode(text);
     const entities = await detectEntities({ LanguageCode, Text: text });
     return res.send(entities);
