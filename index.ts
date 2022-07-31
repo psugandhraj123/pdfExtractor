@@ -66,6 +66,9 @@ app.use(cors()); // it enables all cors requests
 app.use(fileUpload());
 
 // file upload api
+app.get("/", (req, res) => {
+  return res.send({ msg: "Server Running" });
+});
 app.post("/upload", (req, res) => {
   if (!req.files) {
     return res.status(500).send({ msg: "file is not found" });
