@@ -92,5 +92,5 @@ app.post("/upload", (req, res) => {
   });
 });
 
-const PORT = process.env.SERVER_PORT || 4500;
+const PORT = process.env.PORT || 4500;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
