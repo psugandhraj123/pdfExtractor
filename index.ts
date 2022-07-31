@@ -81,7 +81,7 @@ app.post("/upload", (req, res) => {
   myFile.mv(join(__dirname, myFile.name), async (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).send({ msg: "Error occured" });
+      return res.status(500).send({ msg: err });
     }
     // returing the response with file path and name
     const text = await pdfToText(join(__dirname, myFile.name));
